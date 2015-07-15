@@ -1,0 +1,42 @@
+#!/bin/sh
+
+if [ -z "$1" ] ; then
+	echo "ERROR: No file search provided"
+	exit 1
+fi
+
+if [ -z "$2" ] ; then
+	echo "ERROR: No output format specified"
+	exit 1
+fi
+
+if [ -z "$3" ] ; then
+	echo "WARNING: No sox options provided"
+fi
+
+#FILES="%q\n" "$(pwd)/$1"
+FILES="$(pwd)/$1"
+
+echo "files is: " $FILES
+echo ""
+# for f in *$1 #$FILES
+COUNT=1;
+find . -iname "$1" | while read f
+do
+	echo "File# $COUNT";
+	FILENAME=$(basename "$f"); #echo "filename is: $FILENAME";
+	BASENAME=${FILENAME%.*}; #echo "basename is: $BASENAME";
+	EXT="${FILENAME##*.}"
+	CONVERTCODE="sox \"$BASENAME.$EXT\" $3 \"$BASENAME.$2\" -S -V2"
+	echo "Convert code:" $CONVERTCODE
+	echo "";
+	if [ "$4" ] ; then
+		echo $CONVERTCODE | /bin/bash
+	fi
+	COUNT=$((COUNT+1));
+done
+echo ""
+if [ -z "$4" ] ; then
+	echo "SCRIPT WAS NOT RUN! Add '1' at the end of the command to activate"
+fi
+echo ""
