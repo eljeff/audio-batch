@@ -14,13 +14,14 @@ if [ -z "$3" ] ; then
 	echo "WARNING: No sox options provided"
 fi
 
-#FILES="%q\n" "$(pwd)/$1"
-FILES="$(pwd)/$1"
 
-echo "files is: " $FILES
-echo ""
+echo "" # give me some space
+
+# originally used a FILES variable
+# FILES="$(pwd)/$1"
 # for f in *$1 #$FILES
-COUNT=1;
+
+COUNT=1; # start a counter
 find . -iname "$1" | while read f
 do
 	echo "File# $COUNT";
@@ -28,12 +29,12 @@ do
 	BASENAME=${FILENAME%.*}; #echo "basename is: $BASENAME";
 	EXT="${FILENAME##*.}"
 	CONVERTCODE="sox \"$BASENAME.$EXT\" $3 \"$BASENAME.$2\" -S -V2"
-	echo "Convert code:" $CONVERTCODE
+	echo "Convert code:" $CONVERTCODE # just print out the code that will run
 	echo "";
 	if [ "$4" ] ; then
-		echo $CONVERTCODE | /bin/bash
+		echo $CONVERTCODE | /bin/bash # actually run the code if switch is present
 	fi
-	COUNT=$((COUNT+1));
+	COUNT=$((COUNT+1)); # increment counter
 done
 echo ""
 if [ -z "$4" ] ; then
