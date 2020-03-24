@@ -6,7 +6,7 @@ soxbatch2 usage:
 example:
 ./soxbatch2 "*.wav" "wav" "" "-processed" "trim 0 0:02 fade 0 0 0.1 norm" 1
 
-that will look in a directory for all files ending in .wav ("*.wav"), and for each, 
+that will look in a directory for all files ending in .wav ("*.wav"), and for each, \n
 output a new wav file ("wav")
 named FILENAME-processed.wav ("-processed"), 
 trimmed to 2 seconds ("trim 0 0:02"), 
