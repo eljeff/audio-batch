@@ -35,7 +35,7 @@ do
 	CONVERTCODE="sox \"$BASENAME.$EXT\" $3 \"$BASENAME$4.$2\"  -S -V2 $5"
 	echo "Convert code:" $CONVERTCODE # just print out the code that will run
 	echo "";
-	if [ "$5" ] ; then
+	if [ "$6" ] ; then
 		echo $CONVERTCODE | /bin/bash # actually run the code if switch is present
 	fi
 	COUNT=$((COUNT+1)); # increment counter
