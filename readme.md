@@ -14,3 +14,13 @@ with a 0.1 second fadeout ("fade 0 0 0.1"),
 and normalised ("norm").
 the '1' at the end is the flag that actually runs the script, without it, it will just print out 
 the sox command.
+
+recursive usage:
+this one you can leave out the last argument, OR you can pass in your own sox options... 
+
+simplest usage (44.1k, 16bit default):
+bash ./sox-recursive-convert.sh sourceDir targetDir
+
+advanced usage (mono, 22.5k, 8 bit):
+bash ./sox-recursive-convert.sh sourceDir targetDir "-c 1 -b 8 -r 22050" 
+
