@@ -29,6 +29,9 @@ mkdir -p "$OutDir"
 # Target sample rate
 SOX_OPTS=${3:-"-b 16 -r 44100"}
 
+# Target output format (defaults to wav)
+OutFormat=${4:-"wav"}
+
 # Convert each file with SoX, and write the converted file
 # to the corresponding output dir, preserving the internal
 # structure of the input dir
@@ -38,15 +41,17 @@ do
 
   # the output path, without the InDir prefix
   output=${input#$InDir}
-  # replace the original extension with .wav
-  output=$OutDir${output%.*}.wav
+  # replace the original extension with OutFormat (or default to .wav)
+  output=$OutDir${output%.*}.$OutFormat
 
   # get the output directory, and create it if necessary
   outdir=$(dirname "${output}")
   mkdir -p "$outdir"
 
   # finally, convert the file
+  SoxCommand="\"$input\" $SOX_OPTS \"$output\""
   sox "$input" $SOX_OPTS "$output"
+  echo "sox $SoxCommand"
 
   echo "saved as $output"
 done
